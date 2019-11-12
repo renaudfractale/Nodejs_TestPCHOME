@@ -9,13 +9,14 @@
 /*if (!Office.context.requirements.isSetSupported('ExcelApi', '1.7')) {
   console.log('Sorry. The tutorial add-in uses Excel.js APIs that are not available in your version of Office.');
 }*/
-Office.context.requirements.isSetSupported('ExcelApi', '1.7')
+Office.context.requirements.isSetSupported('ExcelApi', '1.8');
 // Assign event handlers and other initialization logic.
-document.getElementById("create-table").onclick = createTable;
-document.getElementById("filter-table").onclick = filterTable;
-document.getElementById("sort-table").onclick = sortTable;
+
+
+
 
 function createTable() {
+   // Excel.context.workbook.worksheets.getActiveWorksheet().getRange()
   Excel.run(function (context) {
 
       // TODO1: Queue table creation logic here.
@@ -33,8 +34,8 @@ expensesTable.rows.add(null /*add at the end*/, [
     ["1/5/2017", "Best For You Organics Company", "Groceries", "27.9"],
     ["1/10/2017", "Coho Vineyard", "Restaurant", "33"],
     ["1/11/2017", "Bellows College", "Education", "350.1"],
-    ["1/15/2017", "Trey Research", "Other", "135"],
-    ["1/15/2017", "Best For You Organics Company", "Groceries", "97.88"]
+    ["1/12/2017", "Trey Research", "Other", "135"],
+    ["2/11/2017", "Best For You Organics Company", "Groceries", "97.88"]
 ]);
       // TODO3: Queue commands to format the table.
       expensesTable.columns.getItemAt(3).getRange().numberFormat = [['€#,##0.00']];
@@ -44,13 +45,12 @@ expensesTable.rows.add(null /*add at the end*/, [
   })
   .catch(function (error) {
       console.log("Error: " + error);
-     /* if (error instanceof OfficeExtension.Error) {
-          console.log("Debug info: " + JSON.stringify(error.debugInfo));
-      }*/
   });
 }
 
+document.getElementById("create-table").onclick = createTable;
 
+document.getElementById("filter-table").onclick = filterTable;
 function filterTable() {
     Excel.run(function (context) {
 
@@ -68,7 +68,7 @@ function filterTable() {
         console.log("Error: " + error);
     });
 }
-
+document.getElementById("sort-table").onclick = sortTable;
 function sortTable() {
     Excel.run(function (context) {
 
