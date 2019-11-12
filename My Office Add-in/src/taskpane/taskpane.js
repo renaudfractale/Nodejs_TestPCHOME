@@ -9,7 +9,7 @@
 /*if (!Office.context.requirements.isSetSupported('ExcelApi', '1.7')) {
   console.log('Sorry. The tutorial add-in uses Excel.js APIs that are not available in your version of Office.');
 }*/
-Office.context.requirements.isSetSupported('ExcelApi', '1.8');
+Office.context.requirements.isSetSupported('ExcelApi', '1.9');
 // Assign event handlers and other initialization logic.
 
 
@@ -83,6 +83,21 @@ function sortTable() {
         ];
         
         expensesTable.sort.apply(sortFields);
+        return context.sync();
+    })
+    .catch(function (error) {
+        console.log("Error: " + error);
+    });
+}
+
+
+document.getElementById("helloworld").onclick = helloword;
+function helloword() {
+    Excel.run(function (context) {
+       var R= context.workbook.getSelectedRange();
+       R.load();
+
+      R.values = "Hello World";
         return context.sync();
     })
     .catch(function (error) {
