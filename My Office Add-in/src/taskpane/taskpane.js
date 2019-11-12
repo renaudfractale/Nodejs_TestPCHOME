@@ -12,6 +12,8 @@
 Office.context.requirements.isSetSupported('ExcelApi', '1.7')
 // Assign event handlers and other initialization logic.
 document.getElementById("create-table").onclick = createTable;
+document.getElementById("filter-table").onclick = filterTable;
+document.getElementById("sort-table").onclick = sortTable;
 
 function createTable() {
   Excel.run(function (context) {
@@ -46,4 +48,44 @@ expensesTable.rows.add(null /*add at the end*/, [
           console.log("Debug info: " + JSON.stringify(error.debugInfo));
       }*/
   });
+}
+
+
+function filterTable() {
+    Excel.run(function (context) {
+
+        // TODO1: Queue commands to filter out all expense categories except
+        //        Groceries and Education.
+        var currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
+        var expensesTable = currentWorksheet.tables.getItem('ExpensesTable');
+        var categoryFilter = expensesTable.columns.getItem('Category').filter;
+        categoryFilter.applyValuesFilter(['Education', 'Groceries']);
+
+
+        return context.sync();
+    })
+    .catch(function (error) {
+        console.log("Error: " + error);
+    });
+}
+
+function sortTable() {
+    Excel.run(function (context) {
+
+        // TODO1: Queue commands to sort the table by Merchant name.
+        var currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
+        var expensesTable = currentWorksheet.tables.getItem('ExpensesTable');
+        var sortFields = [
+            {
+                key: 1,            // Merchant column
+                ascending: false,
+            }
+        ];
+        
+        expensesTable.sort.apply(sortFields);
+        return context.sync();
+    })
+    .catch(function (error) {
+        console.log("Error: " + error);
+    });
 }
