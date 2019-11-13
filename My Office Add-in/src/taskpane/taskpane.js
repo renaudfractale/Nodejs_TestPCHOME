@@ -105,6 +105,66 @@ function helloword() {
     });
 }
 
+document.getElementById("action1").onclick = action1;
+function action1() {
+    Excel.run(function (context) {
+        var Sheets =   context.workbook.worksheets;
+        var bool = true;
+       document.getElementById("Sheets").innerHTML = bool+" Planning 1";
+        //document.getElementById("Sheets").innerHTML=  Sheets.names
+        var NB = Sheets.cou();
+       // for(var i=0; i<NB.value;i++){
+         //   document.getElementById("Sheets").innerHTML+= "|" + i.toString();
+          /*  if(Sheets.getItemAt(i).name == "Planning"){
+                bool=false
+            }*/
+       // }
+        document.getElementById("Sheets").innerHTML += "|" + NB.values();
+        document.getElementById("Sheets").innerHTML += bool+" Planning 2";
+
+        if(bool==true){
+            context.workbook.worksheets.add("Planning");
+            var SheetPlanning = context.workbook.worksheets.getItem("Planning");
+            SheetPlanning.getRange("A1").values="Date de Création";
+            SheetPlanning.getRange("B1").values="Nom de la Task";
+            SheetPlanning.getRange("C1").values="Date Start";
+            SheetPlanning.getRange("D1").values="Duration All (days)";
+            SheetPlanning.getRange("E1").values="Duration Work (hours)";
+            SheetPlanning.getRange("F1").values="Dependance";
+        }
+
+        bool = true;
+        for(var j in Sheets.items){
+            if(Sheets.items[j].name == "CRA"){
+                bool=false;
+            }
+        }
+        if(bool==true){
+            context.workbook.worksheets.add("CRA");
+            var SheetCRA = context.workbook.worksheets.getItem("CRA");
+            SheetCRA.getRange("A1").values="Date de Création";
+            SheetCRA.getRange("B1").values="Nom de la Task";
+            SheetCRA.getRange("C1").values="Duration Work (hours)";
+        }
+
+        bool = true;
+        for(var k in Sheets.items){
+            if(Sheets.items[k].name == "CRA"){
+                bool=false;
+            }
+        }
+        if(bool==true){
+            context.workbook.worksheets.add("INFO");
+            var SheetINFO = context.workbook.worksheets.getItem("INFO");
+            SheetINFO.getRange("A1").values="GANTT By Renaud HENRY";
+            SheetINFO.getRange("A2").values="Version 0.0.1";
+        }
+        return context.sync();
+    })
+    .catch(function (error) {
+        console.log("Error: " + error);
+    });
+}
 
 
  
