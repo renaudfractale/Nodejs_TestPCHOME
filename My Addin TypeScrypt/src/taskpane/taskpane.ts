@@ -4,6 +4,49 @@
  */
 
 /* global console, document, Excel, Office */
+class ConfTable {
+  NameSheet : string
+  NameTable : string
+  constructor(nameSheet : string, nameTable: string){
+    this.NameSheet=nameSheet;
+    this.NameTable=nameTable;
+  }
+   async Exist( context : Excel.RequestContext) : Promise<boolean>{
+      
+      try {
+        //chargemenet des Sheets
+        let sheets = context.workbook.worksheets;
+        sheets.load("items/name");
+        await context.sync();
+        let sheet :  Excel.Worksheet = null;
+        for( let i =0 ; i<sheets.items.length;i++){
+          if(sheets.items[i].name==this.NameSheet){
+            sheet= sheets.items[i];
+          }
+        }
+        if(sheet==null) {
+          return false;
+        }
+        //chargemenet des Tables
+        let tables : Excel.TableCollection = sheet.tables;
+        tables.load("items/name");
+        await context.sync();
+        let table : Excel.Table = null;
+        for( let i =0 ; i<tables.items.length;i++){
+          if(tables.items[i].name==this.NameTable){
+            table = tables.items[i];
+          }
+        }
+        if(table==null) {
+          return false;
+        } else {
+          return true;
+        }
+      } catch (error) {
+        return false;
+      }
+  }
+}
 
 Office.onReady(info => {
   if (info.host === Office.HostType.Excel) {
@@ -11,6 +54,7 @@ Office.onReady(info => {
     document.getElementById("app-body").style.display = "flex";
     document.getElementById("run").onclick = run;
     document.getElementById("run2").onclick = run2;
+    document.getElementById("run3").onclick = run3;
   }
 });
 
@@ -109,23 +153,42 @@ export async function run2() {
   await Excel.run(async context => {
     document.getElementById("log").innerHTML+= "<br>"+"888888888888"
     let NameSheets : string = "Planning";
-
-
- 
     await context.sync();
    
     let SheetPlanning= context.workbook.worksheets.getItem(NameSheets);
     document.getElementById("log").innerHTML+= "<br>"+ "5555555555555";
     SheetPlanning.load("tables");
     await context.sync();
+
     let expensesTable = SheetPlanning.tables.getItem("TablePlanning")
     document.getElementById("log").innerHTML+= "<br>"+ "666666666";
     expensesTable.load("rows");
     await context.sync();
+
     document.getElementById("log").innerHTML+= "<br>"+ "7777777777";
-   let  rowRange=  expensesTable.rows.getItemAt(1).load("values");
+    let  rowRange=  expensesTable.rows.getItemAt(0).load("values");
     await context.sync();
+
     document.getElementById("log").innerHTML+= "<br>"+ rowRange.values
+
+   await context.sync();
+
+
+
+  });
+}
+
+
+
+export async function run3() {
+  await Excel.run(async context => {
+    document.getElementById("log").innerHTML+= "<br>"+"0000000000000"
+    let NameSheets : string = "Planning";
+    let NameTable : string = "TablePlanning"
+    document.getElementById("log").innerHTML+= "<br>"+"111111111"
+    let conf = new ConfTable(NameSheets,NameTable);
+    let status = await conf.Exist(context)
+    document.getElementById("log").innerHTML+= "<br>"+ status
 
    await context.sync();
 
