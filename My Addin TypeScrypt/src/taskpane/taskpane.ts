@@ -47,7 +47,6 @@ class ConfTable {
       }
   }
 }
-
 Office.onReady(info => {
   if (info.host === Office.HostType.Excel) {
     document.getElementById("sideload-msg").style.display = "none";
@@ -55,8 +54,26 @@ Office.onReady(info => {
     document.getElementById("run").onclick = run;
     document.getElementById("run2").onclick = run2;
     document.getElementById("run3").onclick = run3;
+    
   }
 });
+
+//document.getElementById("sync").onclick = sync;
+sync();
+export function sync(){
+  let dataist : HTMLElement =  document.getElementById("ListeTask");
+  dataist.innerHTML = "";
+  let ArrayData : string[]= ["1", "2", "aaaaa"];
+  for( let i =0;i<ArrayData.length;i++ ){
+    let txt = ArrayData[i]
+    let option : HTMLOptionElement = document.createElement("option")
+    option.value = txt;
+    option.dataset.id=i.toString();
+    dataist.appendChild(option)
+  }
+}
+
+
 
 export async function run() {
     await Excel.run(async context => {

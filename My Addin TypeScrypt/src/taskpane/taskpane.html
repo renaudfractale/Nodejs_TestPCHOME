@@ -28,23 +28,63 @@
     <section id="sideload-msg" class="ms-welcome__main">
         <h2 class="ms-font-xl">Please sideload your add-in to see app body.</h2>
     </section>
+    <div align="center">
+       
+            <h4>Information sur la task</h4>
+            <div>
+                <label>Nom de la task : </label>
+                <input type=text list="ListeTask"  id="TaskName" onchange="UpdateListActions();">
+                <datalist id="ListeTask"></datalist>
+            </div>
+            <div  id="GroupOtionUpdateOrDel">
+                    <input type="radio" id="UpdateTask" name="drone" value="SexeM" checked>
+                    <label for="Monsieur">Monsieur</label>
+              
+                    <input type="radio" id="DelTask" name="drone" value="SexeF">
+                    <label for="Madame">Madame</label>
+            </div>
+
+      
+    </div>    
+    <script>
+        function is_valid_datalist_value(idDataList, inputValue) {
+            var option = document.querySelector("#" + idDataList + " option[value='" + inputValue + "']");
+            if (option != null) {
+                return option.value.length > 0;
+            }
+            return false;
+        }
+
+        function doValidate() {
+            if (is_valid_datalist_value('ListeTask', document.getElementById('TaskName').value)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+                
+       function UpdateListActions() {
+            document.getElementById("log").innerHTML+=doValidate()+"<br>"
+            var div =document.getElementById("GroupOtionUpdateOrDel");
+            document.getElementById("log").innerHTML+=div.innerText
+            //document.getElementById("log").innerHTML+=document.getElementById("GroupOtionUpdateOrDel").style.visibility+"<br>"
+            if(doValidate==true)
+            {
+                if(div.style.visibility=="hidden") {
+                    div.style.visibility="visible";
+                }
+                
+                //document.getElementById("log").innerHTML+=div.style +"<br>"
+
+            } else {
+                if(div.style.visibility=="visible") {
+                    div.style.visibility="hidden";
+                }
+            }
+
+       }
+    </script>
     <main id="app-body" class="ms-welcome__main" style="display: none;">
-        
-        <h2 class="ms-font-xl"> Discover what Office Add-ins can do for you today! </h2>
-        <ul class="ms-List ms-welcome__features">
-            <li class="ms-ListItem">
-                <i class="ms-Icon ms-Icon--Ribbon ms-font-xl"></i>
-                <span class="ms-font-m">Achieve more with Office integration</span>
-            </li>
-            <li class="ms-ListItem">
-                <i class="ms-Icon ms-Icon--Unlock ms-font-xl"></i>
-                <span class="ms-font-m">Unlock features and functionality</span>
-            </li>
-            <li class="ms-ListItem">
-                <i class="ms-Icon ms-Icon--Design ms-font-xl"></i>
-                <span class="ms-font-m">Create and visualize like a pro</span>
-            </li>
-        </ul>
         <p class="ms-font-l">Modify the source files, then click <b>Run</b>.</p>
         <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
             <span class="ms-Button-label">Run</span>
@@ -55,7 +95,7 @@
         <div role="button" id="run3" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
             <span class="ms-Button-label">Run3</span>
         </div>
-        <div role="button" id="log" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl"></div>
+        <span role="button" id="log" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl"></span>
     </main>
 </body>
 
