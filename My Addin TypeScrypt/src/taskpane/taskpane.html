@@ -28,62 +28,7 @@
     <section id="sideload-msg" class="ms-welcome__main">
         <h2 class="ms-font-xl">Please sideload your add-in to see app body.</h2>
     </section>
-    <div align="center">
-       
-            <h4>Information sur la task</h4>
-            <div>
-                <label>Nom de la task : </label>
-                <input type=text list="ListeTask"  id="TaskName" onchange="UpdateListActions();">
-                <datalist id="ListeTask"></datalist>
-            </div>
-            <div  id="GroupOtionUpdateOrDel">
-                    <input type="radio" id="UpdateTask" name="drone" value="SexeM" checked>
-                    <label for="Monsieur">Monsieur</label>
-              
-                    <input type="radio" id="DelTask" name="drone" value="SexeF">
-                    <label for="Madame">Madame</label>
-            </div>
-
-      
-    </div>    
-    <script>
-        function is_valid_datalist_value(idDataList, inputValue) {
-            var option = document.querySelector("#" + idDataList + " option[value='" + inputValue + "']");
-            if (option != null) {
-                return option.value.length > 0;
-            }
-            return false;
-        }
-
-        function doValidate() {
-            if (is_valid_datalist_value('ListeTask', document.getElementById('TaskName').value)) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-                
-       function UpdateListActions() {
-            document.getElementById("log").innerHTML+=doValidate()+"<br>"
-            var div =document.getElementById("GroupOtionUpdateOrDel");
-            document.getElementById("log").innerHTML+=div.innerText
-            //document.getElementById("log").innerHTML+=document.getElementById("GroupOtionUpdateOrDel").style.visibility+"<br>"
-            if(doValidate==true)
-            {
-                if(div.style.visibility=="hidden") {
-                    div.style.visibility="visible";
-                }
-                
-                //document.getElementById("log").innerHTML+=div.style +"<br>"
-
-            } else {
-                if(div.style.visibility=="visible") {
-                    div.style.visibility="hidden";
-                }
-            }
-
-       }
-    </script>
+   
     <main id="app-body" class="ms-welcome__main" style="display: none;">
         <p class="ms-font-l">Modify the source files, then click <b>Run</b>.</p>
         <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
@@ -95,7 +40,115 @@
         <div role="button" id="run3" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
             <span class="ms-Button-label">Run3</span>
         </div>
+        
+        <div>
+       
+            <h4>Information sur la task</h4>
+            <div>
+                <label>Nom de la task : </label>
+                <input type=text list="ListeTask"  id="TaskName" onchange="UpdateListActions();">
+                <datalist id="ListeTask"></datalist>
+            </div>
+            <div  id="GroupOtionUpdateOrDel"  style="visibility:hidden;">
+                <input type="radio" id="UpdateTask" name="UpdateOrDel"  checked  onchange="UpdateChoix();">
+                <label >Update</label>
+              
+                <input type="radio" id="DelTask" name="UpdateOrDel" onchange="UpdateChoix();">
+                <label >Del</label>
+            </div>
+            <div  id="ChampsInput"  style="visibility:hidden;">
+                <div>
+                    <label>Date Start : </label>
+                    <input type="date"  id="DateStart">   
+                </div>
+                <div>
+                    <label>duration All: </label>
+                    <input type="number"  id="DurationAll">   
+                </div>
+                <div>
+                    <label>duration work: </label>
+                    <input type="number"  id="DurationWork">   
+                </div>
+            </div>
+            <div  id="ButtonValidation"  style="visibility:hidden;">
+            <div role="button" id="ok" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
+                <span class="ms-Button-label">Ok</span>
+            </div>
+        </div>
+    </div>    
+    <input type="date" id="bday" name="bday">
+    <script>
+       function is_valid_datalist_value(idDataList, inputValue) {
+            var option = document.querySelector("#" + idDataList + " option[value='" + inputValue + "']");
+            if (option != null) {
+                return option.value.length > 0;
+            }
+            return false;
+        }
+
+       function doValidate()  {
+            if (is_valid_datalist_value('ListeTask', document.getElementById('TaskName').value)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+                
+       function UpdateListActions() {
+            document.getElementById("log").innerHTML+=doValidate()+"<br>"
+            var div =document.getElementById("GroupOtionUpdateOrDel");
+            var buton =document.getElementById("ButtonValidation");
+            
+            document.getElementById("log").innerHTML+=div.getAttribute("style")+" 1 <br>"
+            //document.getElementById("log").innerHTML+=document.getElementById("GroupOtionUpdateOrDel").style.visibility+"<br>"
+            if(doValidate()==true)
+            {
+                //document.getElementById("log").innerHTML+=div.getAttribute("style")+" 2 <br>"
+                if(div.style.visibility=="hidden") {
+                   div.style.visibility="visible";
+                }
+                if(buton.style.visibility=="hidden") {
+                    buton.style.visibility="visible";
+                }
+                //document.getElementById("log").innerHTML+=div.getAttribute("style")+" 3 <br>"
+            } else {
+                //document.getElementById("log").innerHTML+=div.getAttribute("style")+" 4 <br>"
+                if(div.style.visibility=="visible" | div.style.visibility=="") {
+                    div.style.visibility="hidden";
+                }
+                if(document.getElementById("TaskName").value!=""){
+                    if(buton.style.visibility=="hidden") {
+                        buton.style.visibility="visible";
+                    } 
+                } else {
+                    if(buton.style.visibility=="visible") {
+                        buton.style.visibility="hidden";
+                    }
+                }
+                //document.getElementById("log").innerHTML+=div.getAttribute("style")+" 5 <br>"
+            }
+            UpdateChoix();
+
+       }
+    
+    
+       function UpdateChoix() {
+            var div =document.getElementById("ChampsInput");
+            if(document.getElementById("UpdateTask").checked==true){
+            if(div.style.visibility=="hidden") {
+                   div.style.visibility="visible";
+                }
+            } else {
+                if(buton.style.visibility=="visible") {
+                    buton.style.visibility="hidden";
+                }
+            }
+       }
+    </script>
+        
         <span role="button" id="log" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl"></span>
+
+
     </main>
 </body>
 

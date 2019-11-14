@@ -54,16 +54,15 @@ Office.onReady(info => {
     document.getElementById("run").onclick = run;
     document.getElementById("run2").onclick = run2;
     document.getElementById("run3").onclick = run3;
-    
+    document.getElementById("ok").onclick = ok;
   }
 });
-
+let ArrayData : Array<string>= ["1", "2", "aaaaa"];
 //document.getElementById("sync").onclick = sync;
 sync();
 export function sync(){
   let dataist : HTMLElement =  document.getElementById("ListeTask");
   dataist.innerHTML = "";
-  let ArrayData : string[]= ["1", "2", "aaaaa"];
   for( let i =0;i<ArrayData.length;i++ ){
     let txt = ArrayData[i]
     let option : HTMLOptionElement = document.createElement("option")
@@ -73,7 +72,24 @@ export function sync(){
   }
 }
 
+export async function ok(){
 
+  let bool : boolean = true
+  let txtHtml : HTMLInputElement = <HTMLInputElement>document.getElementById("TaskName");
+  for( let i =0;i<ArrayData.length;i++ ){
+    let txt = ArrayData[i]
+    if( txt==txtHtml.value){
+      bool=false
+       ArrayData.splice(i,1)
+      break
+    }
+  }
+  document.getElementById("log").innerHTML+= "<br>" +"9999999999999"
+  if(bool==true){
+    ArrayData.push(txtHtml.value)
+  }
+  sync();
+}
 
 export async function run() {
     await Excel.run(async context => {
