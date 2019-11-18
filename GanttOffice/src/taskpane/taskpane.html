@@ -44,43 +44,67 @@
             <h2 class="ms-font-xl"> Mode Normale Activé </h2>
             <ul class="ms-List ms-welcome__features">
                 <li class="ms-ListItem">
-                    <div role="button" id="run" >
-                        <img src="../../assets/Addtask-icon.jpg" width="30">
+                    <div role="button" id="run_taskAdd" >
+                        <img src="../../assets/task_Add.png" width="60">
                     </div>
-                    <span class="ms-font-m"> Ajouter des tasks</span>
+                    <span class="ms-font-m"> Ajouter de tasks</span>
                 </li>
                 <li class="ms-ListItem">
-                    <div role="button" id="run" >
-                        <img src="../../assets/Addtask-icon.jpg" width="30">
+                    <div role="button" id="run_taskUpdate" >
+                        <img src="../../assets/task_Update.png" width="60">
                     </div>
-                    <span class="ms-font-m"> Mettre à jours des tasks</span>
+                    <span class="ms-font-m"> Mettre à jours de tasks</span>
                 </li>
                 <li class="ms-ListItem">
-                    <i class="ms-Icon ms-Icon--Design ms-font-xl"></i>
-                    <span class="ms-font-m">Create and visualize like a pro</span>
+                    <div role="button" id="run_taskRemove" >
+                        <img src="../../assets/task_Remove.png" width="60">
+                    </div>
+                    <span class="ms-font-m"> Suprimer de tasks</span>
+                </li>
+                <li class="ms-ListItem">
+                    <div role="button" id="run_workerAdd" >
+                        <img src="../../assets/worker_Add.png" width="60">
+                    </div>
+                    <span class="ms-font-m"> Ajouter Work</span>
+                </li>
+                 <li class="ms-ListItem">
+                    <div role="button" id="run_ganntGenerated" >
+                        <img src="../../assets/Gannt_Generate.png" width="60">
+                     </div>
+                    <span class="ms-font-m"> Génere le Gantt</span>
                 </li>
             </ul>
         </div>
         <div id="ModeExpert" style="visibility: collapse;">
-                <h2 class="ms-font-xl"> Mode Expert Activé </h2>
-                <ul class="ms-List ms-welcome__features">
-                    <li class="ms-ListItem">
-                        <i class="ms-Icon ms-Icon--Ribbon ms-font-xl"></i>
-                        <span class="ms-font-m">Achieve more with Office integration</span>
-                    </li>
-                    <li class="ms-ListItem">
-                        <i class="ms-Icon ms-Icon--Unlock ms-font-xl"></i>
-                        <span class="ms-font-m">Unlock features and functionality</span>
-                    </li>
-                    <li class="ms-ListItem">
-                        <i class="ms-Icon ms-Icon--Design ms-font-xl"></i>
-                        <span class="ms-font-m">Create and visualize like a pro</span>
-                    </li>
-                </ul>
-            </div>
-        <p class="ms-font-l">Modify the source files, then click <b>Run</b>.</p>
-        <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-font-xl">
-            <span class="ms-Button-label">Run</span>
+            <h2 class="ms-font-xl"> Mode Expert Activé </h2>
+            <ul class="ms-List ms-welcome__features">
+                <li class="ms-ListItem">
+                    <div role="button" id="run_taskAdvanced" >
+                        <img src="../../assets/task_Advanced.png" width="60">
+                    </div>
+                    <span class="ms-font-m"> Modifier toutes les tasks</span>
+                </li>
+                <li class="ms-ListItem">
+                    <div role="button" id="run_workerAdvanced" >
+                        <img src="../../assets/worker_Advanced.png" width="60">
+                    </div>
+                    <span class="ms-font-m"> Modifier toutes les Works</span>
+                </li>
+                <li class="ms-ListItem">
+                    <div role="button" id="run_ganntGenerated" >
+                        <img src="../../assets/Gannt_Generate.png" width="60">
+                    </div>
+                    <span class="ms-font-m"> Génere le Gantt</span>
+                </li>
+                <li class="ms-ListItem">
+                    <div role="button" id="run_tableGenerator" >
+                        <img src="../../assets/Table_Generator.png" width="60">
+                    </div>
+                    <span class="ms-font-m"> Init File</span>
+                </li>
+            </ul>
+        </div>
+        <div role="button" id="log" >
         </div>
         <script>
             function UpdateMode(){
@@ -92,12 +116,7 @@
                     document.getElementById("ModeExpert").style.visibility="visible";
                 }
             }
-
-
-
-
             UpdateMode();
-        
         </script>
     </main>
 </body>
