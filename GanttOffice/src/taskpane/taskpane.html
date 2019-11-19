@@ -32,13 +32,18 @@
         <h4 class="ms-font-xl"> Choix du mode : </h2>
         <div>
             <div>
-                <input type="radio" id="radioModeNormale" name="ModeType"  checked  onchange="UpdateMode();">
+                <input type="radio" id="radioModeTuTo" name="ModeType"  checked  onchange="UpdateMode();">
+                <label>Tutoriel</label>
+            </div>
+           <div>
+                <input type="radio" id="radioModeNormale" name="ModeType"    onchange="UpdateMode();">
                 <label>Normale</label>
             </div>
             <div>
                 <input type="radio" id="radioModeExpert" name="ModeType"    onchange="UpdateMode();">
                 <label>Expert</label>
             </div>
+
         </div>
         <div id="ModeNormale" style="visibility: collapse;">
             <h2 class="ms-font-xl"> Mode Normale Activé </h2>
@@ -88,7 +93,7 @@
                     <div role="button" id="run_workerAdvanced" >
                         <img src="../../assets/worker_Advanced.png" width="60">
                     </div>
-                    <span class="ms-font-m"> Modifier toutes les Works</span>
+                    <span class="ms-font-m"> Modifier tous les Works</span>
                 </li>
                 <li class="ms-ListItem">
                     <div role="button" id="run_ganntGenerated" >
@@ -104,6 +109,41 @@
                 </li>
             </ul>
         </div>
+        <div id="ModeTuTo" style="visibility: collapse;">
+            <h2 class="ms-font-xl"> Mode Tutoriel Activé </h2>
+            <ul class="ms-List ms-welcome__features">
+                 <li class="ms-ListItem">
+                    <div role="button" id="run_tableGenerator" >
+                        <img src="../../assets/Table_Generator.png" width="60">
+                    </div>
+                    <span class="ms-font-m"> Init File</span>
+               </li>
+                <li class="ms-ListItem">
+                    <div role="button" id="run_taskAdvanced" >
+                        <img src="../../assets/task_Add.png" width="60">
+                    </div>
+                    <span class="ms-font-m"> Generation des tasks </span>
+                </li>
+                <li class="ms-ListItem">
+                    <div role="button" id="run_ganntGenerated" >
+                        <img src="../../assets/Gannt_Generate.png" width="60">
+                    </div>
+                    <span class="ms-font-m"> Génere le Gantt</span>
+                </li>
+                <li class="ms-ListItem">
+                    <div role="button" id="run_taskAdvanced" >
+                        <img src="../../assets/worker_Add.png" width="60">
+                    </div>
+                    <span class="ms-font-m"> Generation des workers </span>
+                </li>
+                <li class="ms-ListItem">
+                    <div role="button" id="run_ganntGenerated" >
+                        <img src="../../assets/Gannt_Generate.png" width="60">
+                    </div>
+                        <span class="ms-font-m"> Génere le Gantt</span>
+                </li>
+            </ul>
+        </div>
         <div role="button" id="log" >
         </div>
         <script>
@@ -111,9 +151,17 @@
                 if(document.getElementById("radioModeNormale").checked==true){
                     document.getElementById("ModeNormale").style.visibility="visible";
                     document.getElementById("ModeExpert").style.visibility="collapse";
-                } else {
+                    document.getElementById("ModeTuTo").style.visibility="collapse";
+                }
+                if(document.getElementById("radioModeExpert").checked==true){
                     document.getElementById("ModeNormale").style.visibility="collapse";
                     document.getElementById("ModeExpert").style.visibility="visible";
+                    document.getElementById("ModeTuTo").style.visibility="collapse";
+                }
+                if(document.getElementById("radioModeTuTo").checked==true){
+                    document.getElementById("ModeNormale").style.visibility="collapse";
+                    document.getElementById("ModeExpert").style.visibility="collapse";
+                    document.getElementById("ModeTuTo").style.visibility="visible";
                 }
             }
             UpdateMode();
